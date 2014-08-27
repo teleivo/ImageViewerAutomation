@@ -8,15 +8,15 @@ using System.Reflection;
 
 namespace ViewerIntegration
 {
-    public class Query : IImageViewerAutomationAction
+    public class Open : ImageViewerAutomationAction
     {
-        private const string regexActionType = "query";
-        private const string regexActionParameter = "(?:StudyInstanceUid=(?<StudyInstanceUid>.*))";
+        private const string regexActionType = "open";
+        private const string regexActionParameter = ".*=.*";
         private static UriScheme uriQueryScheme = new UriScheme(regexActionParameter);
 
         private ServerNode server;
         private DicomExplorerSearchCriteria querySearchCriteria;
-        
+
         public ServerNode ActionOnServer
         {
             set
@@ -38,20 +38,21 @@ namespace ViewerIntegration
             }
         }
 
-        public string RegexPatternActionParameter 
-        { 
-            get {
+        public string RegexPatternActionParameter
+        {
+            get
+            {
                 return regexActionParameter;
-            } 
+            }
         }
 
         /// <summary>
         /// Validate the specified URL conforms to URI scheme defined for this application & parse it into a GroupCollection.
         /// </summary>
-        public IImageViewerAutomationAction SetAction(ServerNode actionOnServer, string urlParameters)
+        public static Query ParseUrl(string url)
         {
-            GroupCollection matchedGroups = uriQueryScheme.ParseUrl(urlParameters);
-    
+            GroupCollection matchedGroups = uriQueryScheme.ParseUrl(url);
+
             DicomExplorerSearchCriteria studyCriteria = new DicomExplorerSearchCriteria();
 
             Console.WriteLine("UriScheme.ParseUrl() found\n");
@@ -76,7 +77,7 @@ namespace ViewerIntegration
 
             // TODO reaction if studyCriteria is null!
 
-            return new Query() { server = actionOnServer, querySearchCriteria = studyCriteria };
+            return new Query() { querySearchCriteria = studyCriteria };
         }
 
         public Boolean Execute()
@@ -87,7 +88,7 @@ namespace ViewerIntegration
                 return ExecuteQueryRemote();
         }
 
-        private Boolean ExecuteQueryRemote()
+        public override Boolean ExecuteQueryRemote()
         {
             //TODO what to do when request comes in with a Study Instance UID? Get PatientId and maybe Accession Nr 
 
@@ -127,12 +128,12 @@ namespace ViewerIntegration
             return true;
         }
 
-        private Boolean ExecuteQueryLocal()
+        public Boolean ExecuteQueryLocal()
         {
             //TODO what to do when request comes in with a Study Instance UID? Get PatientId and maybe Accession Nr 
 
             DicomExplorerAutomationClient dicomExplorerAutomationClient = new DicomExplorerAutomationClient("DicomExplorerAutomation");
-            
+
             //SearchLocalStudiesRequest studySearchLocal = new SearchLocalStudiesRequest();
             DicomExplorerSearchCriteria studyCriteria = new DicomExplorerSearchCriteria();
             //studyCriteria.PatientId = GetPatientId("PatientId", "20140121.122619");

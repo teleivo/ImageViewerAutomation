@@ -11,15 +11,16 @@ namespace ViewerIntegration
             if (args.Length == 1)
             {
                 Console.WriteLine("Calling with URL:\n" + args[0] + "\n");
-                Console.WriteLine("Using regex pattern:\n" + UriSchemeValidator.TotalPattern() + "\n");
                 
                 // Initialize a viewerAction instance with the command line arg URL
-                ImageViewerAction imageViewerAction = ImageViewerAutomation.ParseUrl(args[0]);
+                //ImageViewerAction imageViewerAction = ImageViewerAutomation.ParseUrl(args[0]);
+                IImageViewerAutomationAction imageViewerAction = ImageViewerAutomation.ParseUrl(args[0]);
 
                 if (imageViewerAction != null)
                 {
                     // Execute the action defined in the URL in the ImageViewer
-                    ImageViewerAutomation.Execute(imageViewerAction);
+                    //ImageViewerAutomation.Execute(imageViewerAction);
+                    imageViewerAction.Execute();
                 }
             }
             else
@@ -37,7 +38,7 @@ namespace ViewerIntegration
         static void ShowUsage()
         {
             Console.WriteLine("\\\\\\Usage " + Assembly.GetExecutingAssembly().GetName().Name);
-            Console.WriteLine("Command line: " + Assembly.GetExecutingAssembly().GetName().Name + " \"{0}\" \n", UriSchemeValidator.TotalPattern());
+            //Console.WriteLine("Command line: " + Assembly.GetExecutingAssembly().GetName().Name + " \"{0}\" \n", UriSchemeValidator.TotalPattern());
         }
 
     }

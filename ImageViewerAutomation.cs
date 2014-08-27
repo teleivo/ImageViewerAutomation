@@ -17,40 +17,55 @@ namespace ViewerIntegration
     /// </summary>
     public class ImageViewerAutomation
     {
+        private const string regexAutomationPattern = @"&action=(?<action>.*)&parameter=(?<parameter>.*)(?:&servername=(?<servername>.*)&servergroup=(?<servergroup>.*)|&servername=(?<servername>.*))";
+        private static UriScheme uriAutomationScheme = new UriScheme(regexAutomationPattern);
+
         /// <summary>
-        /// Translates a URL into an <see cref="ImageViewerAction"/> object.
+        /// Translates a URL into an <see cref="IImageViewerAutomationAction"/> object.
         /// </summary>
         /// <exception cref="System.ArgumentException">Thrown when <paramref name="urlToParse"/> does not match <see cref="UriScheme.TotalPattern()"/> </exception>
         /// <param name="urlToParse">URL which will be translated into an instance of <see cref="ImageViewerAction"/></param>
-        /// <returns>Instance of <see cref="ImageViewerAction"/></returns>
-        public static ImageViewerAction ParseUrl(string urlToParse)
+        /// <returns>Instance of <see cref="IImageViewerAutomationAction"/></returns>
+        //public static ImageViewerAction ParseUrl(string urlToParse)
+        public static IImageViewerAutomationAction ParseUrl(string urlToParse)
         {
 
             // TODO error check in URL - not sure what exactly that means??? guess it means here in ParseURL
             // TODO check what happens if servergroup = null? after making servergroup optional in UrlPattern
             // TODO parseURL should this move to UrlPattern??? not sure
 
+            List<IImageViewerAutomationAction> listOfActions = new List<IImageViewerAutomationAction>();
+            listOfActions.Add(new Query());
+
             try
             {
-                GroupCollection matchedGroups = UriSchemeValidator.ParseUrl(urlToParse);
+                GroupCollection matchedGroups = uriAutomationScheme.ParseUrl(urlToParse);
 
-                //for (int ctr = 1; ctr < matchedGroups.Count; ctr++)
-                //    Console.WriteLine("   Group {0}: {1}", ctr, matchedGroups[ctr].Value);
-
-                Console.WriteLine("UriSchemeValidator.ParseUrl() found\n");
-                foreach (string groupName in UriSchemeValidator.UrlValidationGroupNames())
+                Console.WriteLine("UriScheme.ParseUrl() found\n");
+                foreach (string groupName in uriAutomationScheme.UrlValidationGroupNames())
                 {
                     Console.WriteLine(
                        "Group: {0}, Value: {1}",
                        groupName,
                        matchedGroups[groupName].Value);
                 }
+                
+                // TODO reaction to if one of the three is null!
+                string matchedActionType = matchedGroups["action"].Value;
+                ServerNode matchedServerNode = ImageViewer.FindServer(matchedGroups["servername"].Value, matchedGroups["servergroup"].Value);
+                string matchedActionParameter = matchedGroups["parameter"].Value;               
 
-                string type = matchedGroups["action"].Value;
-                ImageViewerActionParameter actionParameter = new ImageViewerActionParameter(matchedGroups["level"].Value, matchedGroups["dicomtag"].Value, matchedGroups["dicomvalue"].Value);
-                ServerNode executeActionOnServer = ImageViewer.FindServer(matchedGroups["servername"].Value, matchedGroups["servergroup"].Value);
+                foreach (IImageViewerAutomationAction action in listOfActions)
+                {
+                    if (action.RegexPatternActionType == matchedActionType)
+                    {
+                        IImageViewerAutomationAction imageViewerAutomationAction = action.SetAction(matchedServerNode, matchedActionParameter);
+                        //imageViewerAutomationAction.ActionOnServer = matchedServerNode;
+                        return imageViewerAutomationAction;
+                    }
+                }
 
-                return new ImageViewerAction(urlToParse, type, actionParameter, executeActionOnServer);
+                return null;
             }
             catch(Exception e)
             {

@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4006620C-9043-43C7-9250-D09A0FD102B8}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ViewerIntegration</RootNamespace>
+    <AssemblyName>ViewerIntegration</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Query.cs" />
+    <Compile Include="ImageViewerAction.cs" />
+    <Compile Include="ImageViewer.cs" />
+    <Compile Include="ImageViewerAutomation.cs" />
+    <Compile Include="ServerNode.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ImageViewerActionParameter.cs" />
+    <Compile Include="Service References\DicomExplorerAutomation\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\StudyLocator\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ViewerAutomation\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ViewerIntegrationSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>ViewerIntegrationSettings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="UriSchemeValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\ClearCanvas.Dicom.ServiceModel.Query.ImageIdentifier.datasource" />
+    <None Include="Properties\DataSources\ClearCanvas.Dicom.ServiceModel.Query.SeriesIdentifier.datasource" />
+    <None Include="Properties\DataSources\ClearCanvas.Dicom.ServiceModel.Query.StudyRootStudyIdentifier.datasource" />
+    <None Include="Service References\DicomExplorerAutomation\Automation.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DicomExplorerAutomation\Automation1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DicomExplorerAutomation\Automation2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DicomExplorerAutomation\DicomExplorerAutomation.wsdl" />
+    <None Include="Service References\DicomExplorerAutomation\ViewerIntegration.DicomExplorerAutomation.SearchLocalStudiesResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\DicomExplorerAutomation\ViewerIntegration.DicomExplorerAutomation.SearchRemoteStudiesResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\StudyLocator\StudyLocator.wsdl" />
+    <None Include="Service References\StudyLocator\StudyLocator.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\StudyLocator\StudyLocator1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\StudyLocator\StudyLocator2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ViewerAutomation\Automation.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ViewerAutomation\Automation1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ViewerAutomation\Automation2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ViewerAutomation\Automation3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ViewerAutomation\ViewerAutomation.wsdl" />
+    <None Include="Service References\ViewerAutomation\ViewerIntegration.ViewerAutomation.GetActiveViewersResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ViewerAutomation\ViewerIntegration.ViewerAutomation.GetViewerInfoResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ViewerAutomation\ViewerIntegration.ViewerAutomation.GetViewersResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ViewerAutomation\ViewerIntegration.ViewerAutomation.OpenFilesResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ViewerAutomation\ViewerIntegration.ViewerAutomation.OpenStudiesResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="ViewerIntegrationSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>ViewerIntegrationSettings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\DicomExplorerAutomation\" />
+    <WCFMetadataStorage Include="Service References\StudyLocator\" />
+    <WCFMetadataStorage Include="Service References\ViewerAutomation\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ViewerAutomation\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ViewerAutomation\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ViewerAutomation\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DicomExplorerAutomation\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DicomExplorerAutomation\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DicomExplorerAutomation\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\StudyLocator\StudyLocator.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\StudyLocator\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\StudyLocator\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\StudyLocator\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\clearcanvas-tests\Common\ClearCanvas.Common.csproj">
+      <Project>{F6EAD428-E6CF-4DF6-B2F3-D33D532C5343}</Project>
+      <Name>ClearCanvas.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\clearcanvas-tests\Dicom\ClearCanvas.Dicom.csproj">
+      <Project>{AD9ECE2B-8268-4115-8DC8-860FBD011FFF}</Project>
+      <Name>ClearCanvas.Dicom</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
